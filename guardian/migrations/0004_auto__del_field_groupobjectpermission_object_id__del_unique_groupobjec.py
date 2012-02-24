@@ -15,10 +15,10 @@ class Migration(SchemaMigration):
         db.alter_column('guardian_userobjectpermission', 'object_pk', self.gf('django.db.models.fields.CharField')(max_length=255))
 
         # Removing unique constraint on 'UserObjectPermission', fields ['object_id', 'user', 'content_type', 'permission']
-        db.delete_unique('guardian_userobjectpermission', ['object_id', 'user_id', 'content_type_id', 'permission_id'])
+        #db.delete_unique('guardian_userobjectpermission', ['object_id', 'user_id', 'content_type_id', 'permission_id'])
 
         # Removing unique constraint on 'GroupObjectPermission', fields ['group', 'object_id', 'content_type', 'permission']
-        db.delete_unique('guardian_groupobjectpermission', ['group_id', 'object_id', 'content_type_id', 'permission_id'])
+        #db.delete_unique('guardian_groupobjectpermission', ['group_id', 'object_id', 'content_type_id', 'permission_id'])
 
         # Deleting field 'GroupObjectPermission.object_id'
         db.delete_column('guardian_groupobjectpermission', 'object_id')
@@ -48,15 +48,15 @@ class Migration(SchemaMigration):
         db.delete_unique('guardian_groupobjectpermission', ['object_pk', 'group_id', 'content_type_id', 'permission_id'])
 
         # We cannot add back in field 'GroupObjectPermission.object_id'
-        raise RuntimeError(
-            "Cannot reverse this migration. 'GroupObjectPermission.object_id' and its values cannot be restored.")
+        #raise RuntimeError(
+        #    "Cannot reverse this migration. 'GroupObjectPermission.object_id' and its values cannot be restored.")
 
         # Adding unique constraint on 'GroupObjectPermission', fields ['group', 'object_id', 'content_type', 'permission']
         db.create_unique('guardian_groupobjectpermission', ['group_id', 'object_id', 'content_type_id', 'permission_id'])
 
         # We cannot add back in field 'UserObjectPermission.object_id'
-        raise RuntimeError(
-            "Cannot reverse this migration. 'UserObjectPermission.object_id' and its values cannot be restored.")
+        #raise RuntimeError(
+        #    "Cannot reverse this migration. 'UserObjectPermission.object_id' and its values cannot be restored.")
 
         # Adding unique constraint on 'UserObjectPermission', fields ['object_id', 'user', 'content_type', 'permission']
         db.create_unique('guardian_userobjectpermission', ['object_id', 'user_id', 'content_type_id', 'permission_id'])
